@@ -92,7 +92,7 @@ namespace CH_Final.Data
             {
                 Console.WriteLine(ex.Message);
             }
-            return ventas;
+            return productoVendidos;
         }
         #endregion
 
