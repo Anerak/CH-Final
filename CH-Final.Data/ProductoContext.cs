@@ -251,6 +251,18 @@ namespace CH_Final.Data
 
             return result;
         }
+
+        public int Modificar(List<Producto> productos)
+        {
+            int result = 0;
+
+            foreach (Producto producto in productos)
+            {
+                result += this.Modificar(producto);
+            }
+
+            return result;
+        }
         #endregion
     }
 }
