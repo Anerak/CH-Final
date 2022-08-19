@@ -48,7 +48,6 @@ namespace CH_Final.Data
             }
             return resultUsuario;
         }
-
         public Usuario GetUsuario(string username, string password)
         {
             Usuario resultUsuario = new Usuario();
@@ -62,6 +61,45 @@ namespace CH_Final.Data
                     cmd.CommandText = "SELECT * FROM Usuario WHERE NombreUsuario = @user AND Contraseña = @pass;";
                     cmd.Parameters.Add("user", System.Data.SqlDbType.VarChar).Value = username;
                     cmd.Parameters.Add("pass", System.Data.SqlDbType.VarChar).Value = password;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                resultUsuario.Id = Convert.ToInt32(reader["Id"]);
+                                resultUsuario.Nombre = reader["Nombre"].ToString();
+                                resultUsuario.Apellido = reader["Apellido"].ToString();
+                                resultUsuario.NombreUsuario = reader["NombreUsuario"].ToString();
+                                resultUsuario.Contraseña = reader["Contraseña"].ToString();
+                                resultUsuario.Mail = reader["Mail"].ToString();
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return resultUsuario;
+        }
+        public Usuario GetUsuario(string username)
+        {
+            Usuario resultUsuario = new Usuario();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = "SELECT * FROM Usuario WHERE NombreUsuario = @user;";
+                    cmd.Parameters.Add("user", System.Data.SqlDbType.VarChar).Value = username;
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -125,7 +163,6 @@ namespace CH_Final.Data
 
                     connection.Close();
                 }
-                usuarios.ForEach(u => Console.WriteLine(u.Nombre));
             }
             catch (Exception ex)
             {
@@ -182,6 +219,56 @@ namespace CH_Final.Data
                     SqlCommand cmd = connection.CreateCommand();
                     cmd.CommandText = "DELETE FROM Usuario WHERE Id = @id;";
                     cmd.Parameters.Add("id", SqlDbType.BigInt).Value = usuario.Id;
+
+                    result = cmd.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
+        }
+
+        public int Eliminar(string username)
+        {
+            int result = -1;
+
+            try {
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = "DELETE FROM Usuario WHERE NombreUsuario = @username;";
+                    cmd.Parameters.Add("username", SqlDbType.VarChar).Value = username;
+
+                    result = cmd.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
+        }public int Eliminar(int idUsuario)
+        {
+            int result = -1;
+
+            try {
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = "DELETE FROM Usuario WHERE Id = @id;";
+                    cmd.Parameters.Add("id", SqlDbType.BigInt).Value = idUsuario;
 
                     result = cmd.ExecuteNonQuery();
 

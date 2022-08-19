@@ -8,9 +8,9 @@ namespace CH_Final.Models
 {
     public class ProductoVendido
     {
-        public int Id;
-        public int IdProducto;
-        public int Stock;
-        public int IdVenta;
+        public int Id { get; set; }
+        public int IdProducto { get; set; }
+        public int Stock { get; set; }
+        public int IdVenta { get; set; }
     }
 }

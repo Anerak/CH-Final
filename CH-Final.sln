@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CH-Final.Models", "CH-Final
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CH-Final.Data", "CH-Final.Data\CH-Final.Data.csproj", "{7D896A11-3254-479D-838E-69771A4C49A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CH-Final.API", "CH-Final.API\CH-Final.API.csproj", "{67194773-DA3C-4607-BBD3-B61B14038D26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{7D896A11-3254-479D-838E-69771A4C49A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D896A11-3254-479D-838E-69771A4C49A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D896A11-3254-479D-838E-69771A4C49A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67194773-DA3C-4607-BBD3-B61B14038D26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67194773-DA3C-4607-BBD3-B61B14038D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67194773-DA3C-4607-BBD3-B61B14038D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67194773-DA3C-4607-BBD3-B61B14038D26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

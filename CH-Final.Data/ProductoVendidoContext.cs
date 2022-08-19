@@ -129,7 +129,7 @@ namespace CH_Final.Data
         #endregion
 
         #region Eliminar producto vendido
-        public int Eliminar(ProductoVendido productoVendido)
+        public int Eliminar(int id)
         {
             int result = -1;
             try
@@ -140,7 +140,7 @@ namespace CH_Final.Data
 
                     SqlCommand cmd = connection.CreateCommand();
                     cmd.CommandText = "DELETE FROM ProductoVendido WHERE Id = @id;";
-                    cmd.Parameters.Add("id", SqlDbType.BigInt).Value = productoVendido.Id;
+                    cmd.Parameters.Add("id", SqlDbType.BigInt).Value = id;
 
                     result = cmd.ExecuteNonQuery();
 
@@ -151,9 +151,62 @@ namespace CH_Final.Data
             {
                 Console.WriteLine(ex.Message);
             }
-            Console.WriteLine($"{result} producto vendido(s) modificado(s)");
+
             return result;
         }
+        
+        public int EliminarFKProducto(int idProducto)
+        {
+            int result = -1;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = "DELETE FROM ProductoVendido WHERE IdProducto = @id;";
+                    cmd.Parameters.Add("id", SqlDbType.BigInt).Value = idProducto;
+
+                    result = cmd.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
+        }
+
+        public int EliminarFKVenta(int idVenta)
+        {
+            int result = -1;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = "DELETE FROM ProductoVendido WHERE IdVenta = @id;";
+                    cmd.Parameters.Add("id", SqlDbType.BigInt).Value = idVenta;
+
+                    result = cmd.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Modificar venta
@@ -187,6 +240,36 @@ namespace CH_Final.Data
 
             return result;
         }
+        #endregion
+
+        #region Obtener stock vendido
+
+        public int GetStockVendido(int idProducto)
+        {
+            int result = 0;
+            try
+            {
+
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = $"SELECT SUM(Stock) FROM ProductoVendido WHERE IdProducto = @id;";
+                    cmd.Parameters.Add("id", System.Data.SqlDbType.BigInt).Value = idProducto;
+
+                    result = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return result;
+        }
+
         #endregion
     }
 }

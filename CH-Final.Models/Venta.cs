@@ -8,7 +8,7 @@ namespace CH_Final.Models
 {
     public class Venta
     {
-        public int Id;
-        public string? Comentarios;
+        public int Id { get; set; }
+        public string? Comentarios { get; set; }
     }
 }

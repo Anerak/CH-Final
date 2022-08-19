@@ -7,8 +7,8 @@ namespace CH_Final
     {
         static void Main()
         {
-            Sesion sesion = new Sesion();
-            sesion.Conectar();
+            //Sesion sesion = new Sesion();
+            //sesion.Conectar();
         }
     }
 }

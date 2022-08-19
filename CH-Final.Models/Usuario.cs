@@ -8,11 +8,11 @@ namespace CH_Final.Models
 {
     public class Usuario
     {
-        public int Id;
-        public string Nombre;
-        public string Apellido;
-        public string NombreUsuario;
-        public string Contraseña;
-        public string Mail;
+        public int Id {get; set; }
+        public string Nombre {get; set; }
+        public string Apellido {get; set; }
+        public string NombreUsuario {get; set; }
+        public string Contraseña {get; set; }
+        public string Mail { get; set; }
     }
 }

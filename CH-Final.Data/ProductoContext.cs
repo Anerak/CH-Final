@@ -91,6 +91,46 @@ namespace CH_Final.Data
             }
             return productos;
         }
+        public List<Producto> GetProductos(int idUser)
+        {
+            List<Producto> productos = new List<Producto>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = "SELECT * FROM Producto WHERE IdUsuario = @idusuario;";
+                    cmd.Parameters.Add("idusuario", SqlDbType.BigInt).Value = idUser;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Producto resultProducto = new Producto();
+                                resultProducto.Id = Convert.ToInt32(reader["Id"]);
+                                resultProducto.Descripciones = reader["Descripciones"].ToString();
+                                resultProducto.Costo = Convert.ToDecimal(reader["Costo"]);
+                                resultProducto.PrecioVenta = Convert.ToDecimal(reader["PrecioVenta"]);
+                                resultProducto.Stock = Convert.ToInt32(reader["Stock"]);
+                                resultProducto.IdUsuario = Convert.ToInt32(reader["IdUsuario"]);
+                                productos.Add(resultProducto);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return productos;
+        }
         #endregion
 
         #region Insertar Producto
@@ -151,7 +191,31 @@ namespace CH_Final.Data
             {
                 Console.WriteLine(ex.Message);
             }
-            Console.WriteLine($"{result} producto(s) modificado(s)");
+            return result;
+        }
+        
+        public int Eliminar(int id)
+        {
+            int result = -1;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = "DELETE FROM Producto WHERE Id = @id;";
+                    cmd.Parameters.Add("id", SqlDbType.BigInt).Value = id;
+
+                    result = cmd.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return result;
         }
         #endregion
