@@ -10,13 +10,13 @@ namespace CH_Final.API.Controllers
     [ApiController]
     public class VentaController : ControllerBase
     {
-        [HttpGet]
-        List<Venta> GetVentas() => VentaHandler.Ventas.GetVentas();
-
         [HttpGet("{id}")]
-        List<Venta> GetVentas(int id) => VentaHandler.Ventas.GetVentas(id);
+        public List<GetVenta> GetVentas(int id) => VentaHandler.GetVentas(id);
 
         [HttpPost("{id}")]
         public int Create(int id, [FromBody] List<PostVenta> ventas) => VentaHandler.Create(id, ventas);
+
+        [HttpDelete("{id}")]
+        public bool Delete(int id, [FromBody] DeleteVenta venta) => VentaHandler.Delete(id, venta);
     }
 }

@@ -88,45 +88,6 @@ namespace CH_Final.Data
             }
             return ventas;
         }
-
-        public List<Venta> GetVentas(int iduser)
-        {
-            List<Venta> ventas = new List<Venta>();
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
-                {
-                    connection.Open();
-
-                    SqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = "SELECT * FROM Venta WHERE ;";
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Venta resultVenta = new Venta()
-                                {
-                                    Id = Convert.ToInt32(reader["Id"]),
-                                    Comentarios = reader["Comentarios"].ToString()
-                                };
-
-                                ventas.Add(resultVenta);
-                            }
-                        }
-                    }
-
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return ventas;
-        }
         #endregion
 
         #region Insertar venta

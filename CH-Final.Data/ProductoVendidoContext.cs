@@ -244,7 +244,7 @@ namespace CH_Final.Data
 
         #region Obtener stock vendido
 
-        public int GetStockVendido(int idProducto)
+        public int GetStockVendido(int idProducto, int idVenta)
         {
             int result = 0;
             try
@@ -255,8 +255,9 @@ namespace CH_Final.Data
                     connection.Open();
 
                     SqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = $"SELECT SUM(Stock) FROM ProductoVendido WHERE IdProducto = @id;";
-                    cmd.Parameters.Add("id", System.Data.SqlDbType.BigInt).Value = idProducto;
+                    cmd.CommandText = $"SELECT SUM(Stock) FROM ProductoVendido WHERE IdProducto = @idProducto AND IdVenta = @idVenta;";
+                    cmd.Parameters.Add("idProducto", System.Data.SqlDbType.BigInt).Value = idProducto;
+                    cmd.Parameters.Add("idVenta", System.Data.SqlDbType.BigInt).Value = idVenta;
 
                     result = Convert.ToInt32(cmd.ExecuteScalar());
 
